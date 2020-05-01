@@ -10,7 +10,7 @@ TARGET = "2db1850a4fe292bd2706ffd78dbe44b9" #vader
 # Constants
 LENGTH = 10
 VALUES = range(97, 122) #all characters from 'a' to 'z'
-DISPLAY_GUESSES = False
+DISPLAY_GUESSES = True
 
 # Variables
 count = 0
@@ -26,6 +26,8 @@ def newHashTarget(word):
 def checkPassword(password):
 	global count
 	count += 1
+
+	global startTime
 
 	toCheck = hashlib.md5(password.encode())
 
@@ -54,6 +56,7 @@ def bruteForce():
 
 # Main method
 def main():
+	global startTime
 	startTime = time.time()
 	bruteForce()
 

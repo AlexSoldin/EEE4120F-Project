@@ -28,12 +28,14 @@ def checkPassword(password):
 	count += 1
 
 	global startTime
+	global endTime
 
 	toCheck = hashlib.md5(password.encode())
 
 	if (toCheck.hexdigest() == TARGET):
 		endTime = time.time()
-		print("\n\nPassword: {0}\nTime: {1} seconds\nGuesses: {2}\nSpeed: {3} hashes/second\n\n".format(password, endTime-startTime, count, (count/(endTime-startTime))))
+		print("\n\nPassword: {0}\nTime: {1} seconds\nGuesses: {2}\nSpeed: {3} hashes/second\n\n"
+		.format(password, endTime-startTime, count, (count/(endTime-startTime))))
 		os._exit(1)
 
 # Recursively iterates over all character combinations

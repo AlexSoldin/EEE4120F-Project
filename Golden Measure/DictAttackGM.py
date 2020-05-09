@@ -9,7 +9,6 @@ TARGET = "5f4dcc3b5aa765d61d8327deb882cf99" #password
 
 # Constants
 LENGTH = 8
-VALUES = range(97, 122) #all characters from 'a' to 'z'
 DISPLAY_GUESSES = True
 
 # Variables

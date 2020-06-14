@@ -4,7 +4,7 @@ module ASCIICounter(
     input [7:0] startingPosition, //starting letter
     input [2:0] increment, //skip by how many letters
     output reg[7:0] password, //letter to return in ASCII
-    output reg wrap //go back to  a from z
+    output reg wrap //go back to a from z
 );
 
 reg previousRun = 0;
@@ -12,7 +12,7 @@ reg [7:0] counter = 0;
 reg [7:0] temp = "a";
 
 initial 
-    temp = temp + startingPosition;
+    temp <= startingPosition;
 
 always @(posedge clock) begin
     if (enable) begin
@@ -29,10 +29,15 @@ always @(posedge clock) begin
         else begin
             counter <= startingPosition;
             temp <= "a" + counter;
-            wrap <= 1;
         end
+    if((counter+increment) > 26)begin
+        wrap <= 1; //wrap around to a if we reach z
+        temp <= "a";
+        counter <= 0;
     end
 
+    end
+    
     if (previousRun == 0) begin
         wrap <= 0;
         temp <= "a";

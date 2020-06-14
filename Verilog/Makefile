@@ -1,8 +1,8 @@
-PROG = top
+PROG = BruteForce_tb
 CC = iverilog
 
-$(PROG): top.v ASCIICounter.v
-	$(CC) -o $(PROG) top.v ASCIICounter.v
+$(PROG): $(PROG).v BruteForce.v ASCIICounter.v
+	$(CC) -o $(PROG) $(PROG).v BruteForce.v ASCIICounter.v
 
 run:
 	./$(PROG)

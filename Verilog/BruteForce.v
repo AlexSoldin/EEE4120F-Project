@@ -1,14 +1,25 @@
 module BruteForce(
     input clock,
     input enable,
-    input [2:0] startingPosition,
-    input [2:0] increment,
+    input [7:0] startingPosition, //starting letter
+    input [2:0] increment, //amount of letters to increment by
     output reg[7:0] wordLength,
-    output reg[127:0] password
+    output reg[127:0] password //the output password
 );
 
-reg e0, e1, e2, e3, e4, e5, e6;
-reg[127:0] tempPassword = 128'00000000000000000000000000000000;;
-reg[127:0] finalPassword = 128'00000000000000000000000000000000;
+wire e0, e1, e2, e3, e4, e5, e6;
+wire[127:0] tempPassword;
+reg[127:0] finalPassword;//allows for a 16 byte long character string
 
 ASCIICounter a0(clock, enable, startingPosition, increment, tempPassword[7:0], e0);
+ASCIICounter a1(e0, enable, startingPosition, increment, tempPassword[15:8], e1); //clock is the speed of toggle of the wrap bit of previous counter
+
+
+always @(posedge clock) begin
+   
+    if (enable==1) begin
+        password <= tempPassword;
+    end //end if
+
+end
+endmodule

@@ -19,26 +19,14 @@
 //     increment <= 1;
 //     // output <= password;
 
-//     #5 
-//     clk = ~ clk;
+//     #5 clk = ~ clk;
 
 //     #5
 //     enable <= 1;
 //     clk = ~clk;
 
 //     #5
-//     startingPosition <= 24;
-//     clk = ~clk;
-
-//     #5
-//     clk = ~clk;
-//     startingPosition <= 25;
-//     clk = ~clk;
-
-//     #5
-//     clk = ~clk;
-//     startingPosition <= 26;
-//     clk = ~clk;
+//     startingPosition <= "b";
 
 //     repeat (60) // <<< NB: may need to depending on n
 //         begin

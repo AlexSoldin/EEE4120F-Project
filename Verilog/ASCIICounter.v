@@ -23,7 +23,7 @@ Used to determine if wrap needs to be set
 reg [7:0] counter = 0;
 /*
 A placeholder for the actual outputLetter.
-Counts from a to z in steps specified by the incremenet variable
+Counts from a to z in steps specified by the increment variable
 */
 reg [7:0] temp = "a";
 
@@ -32,7 +32,7 @@ initial
 
 always @(posedge clock) begin
     if (enable) begin
-        // Maintains the output is in reset state until enabled for the first time
+        // Maintains the output in reset state until enabled for the first time
         if (previousRun == 0) begin
             previousRun <= 1;
             counter <= startingPosition;
@@ -56,7 +56,7 @@ always @(posedge clock) begin
         end
     end
     
-    // Maintains the output is in reset state until enabled for the first time
+    // Maintains the output in reset state until enabled for the first time
     if (previousRun == 0) begin
         wrap <= 0;
         temp <= "a";

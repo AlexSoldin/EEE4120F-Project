@@ -1,14 +1,30 @@
+/*
+Counts from 'a' to 'z' using ASCII values.
+When 'z' is reached, the wrap variable is set which is used to enable other ASCIICounter modules used for brute force algorithm
+*/
 module ASCIICounter(
     input clock,
     input enable,
-    input [7:0] startingPosition, //starting letter
-    input [2:0] increment, //skip by how many letters
-    output reg[7:0] password, //letter to return in ASCII
-    output reg wrap //go back to a from z
+    input [7:0] startingPosition, //starting letter position
+    input [2:0] increment, //amount to incremenet the letters
+    output reg[7:0] outputLetter, //letter to return in ASCII
+    output reg wrap //wrap from z back to a
 );
 
+/* 
+Indicates whether or not the module has been run. 
+The output must remain in its starting state until first enabled. 
+*/
 reg previousRun = 0;
+/*
+A counter from 0 to 25.
+Used to determine if wrap needs to be set
+*/
 reg [7:0] counter = 0;
+/*
+A placeholder for the actual outputLetter.
+Counts from a to z in steps specified by the incremenet variable
+*/
 reg [7:0] temp = "a";
 
 initial 
@@ -16,11 +32,13 @@ initial
 
 always @(posedge clock) begin
     if (enable) begin
+        // Maintains the output is in reset state until enabled for the first time
         if (previousRun == 0) begin
             previousRun <= 1;
             counter <= startingPosition;
             temp <= "a" + counter;         
         end
+        // Apply the increment as wrap around has not occured
         else if (counter + increment < 26) begin
             temp <= temp + increment;
             counter <= counter + increment;
@@ -30,19 +48,20 @@ always @(posedge clock) begin
             counter <= startingPosition;
             temp <= "a" + counter;
         end
-    if((counter+increment) > 26)begin
-        wrap <= 1; //wrap around to a if we reach z
-        temp <= "a";
-        counter <= 0;
-    end
-
+        // Wrap around has occured 
+        if((counter + increment) > 26)begin
+            wrap <= 1; //wrap around to a if we reach z
+            temp <= "a";
+            counter <= 0;
+        end
     end
     
+    // Maintains the output is in reset state until enabled for the first time
     if (previousRun == 0) begin
         wrap <= 0;
         temp <= "a";
     end
-    password <= temp;
+    outputLetter <= temp;
 end
 
 endmodule

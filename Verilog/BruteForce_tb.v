@@ -18,7 +18,7 @@ initial begin
     $display("\n    Password Hexadecimal\t\t       Password String");
     $monitor("%h\t%s",password,password);
 
-    repeat (2000)begin
+    repeat (100000000)begin
          #5 clk = ~ clk;
     end
 end

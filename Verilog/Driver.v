@@ -1,7 +1,7 @@
 module Driver(
     input clock,
     input enable,
-    output reset
+    output reg reset
 );
 
 reg previousRun = 0;

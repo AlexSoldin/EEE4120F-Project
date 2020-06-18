@@ -3,7 +3,6 @@ module BruteForce(
     input enable,
     input [7:0] startingPosition, //starting letter position
     input [2:0] increment, //amount of letters to increment by
-    output reg[7:0] wordLength,
     output reg[127:0] password //the output password
 );
 

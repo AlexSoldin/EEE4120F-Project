@@ -4,10 +4,9 @@ reg clk;
 reg enable;
 reg [7:0] startingPosition;
 reg [2:0] increment;
-wire [7:0] wordLength;
 wire [127:0] password;
 
-BruteForce bf(clk, enable, startingPosition, increment, wordLength, password);
+BruteForce bf(clk, enable, startingPosition, increment, password);
 
 initial begin
     clk <= 0;

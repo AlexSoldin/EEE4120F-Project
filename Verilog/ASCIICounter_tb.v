@@ -48,7 +48,3 @@ initial begin
 end
 
 endmodule
-
-/* Brute Force Testbench */
-//module top();
-

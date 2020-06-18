@@ -1,5 +1,5 @@
 module BruteForce_tb();
-//module top();
+
 reg clk;
 reg enable;
 reg [7:0] startingPosition;
@@ -8,7 +8,7 @@ wire [7:0] wordLength;
 wire [127:0] password;
 
 BruteForce bf(clk, enable, startingPosition, increment, wordLength, password);
-//integer count = 0;
+
 initial begin
     clk <= 0;
     enable <= 1;
@@ -18,13 +18,9 @@ initial begin
     $display("\n    Password Hexadecimal\t\t       Password String");
     $monitor("%h\t%s",password,password);
 
-    repeat (2000)begin
-         #5 
-         clk = ~ clk;
+    repeat (100000000)begin
+         #5 clk = ~ clk;
     end
-
-   
-
 end
 
 endmodule

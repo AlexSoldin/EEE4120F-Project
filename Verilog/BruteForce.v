@@ -19,7 +19,7 @@ ASCIICounter a2(e1, enable, startingPosition, increment, tempPassword[23:16], e2
 always @(posedge clock) begin
    
     if (enable==1) begin
-        password <= {tempPassword[23:16],tempPassword[15:8], tempPassword[7:0]};
+        password <= {tempPassword[23:16],tempPassword[15:8], tempPassword[7:0]}; //concatenate final password from individual characters
     end //end if
 
 end

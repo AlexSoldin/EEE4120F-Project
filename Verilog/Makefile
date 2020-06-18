@@ -26,5 +26,8 @@ MD5Controller_tb: MD5Controller_tb.v MD5Controller.v
 run_MD5_tb:
 	./Md5Controller_tb
 
+clean_MD5_tb:
+	rm Md5Controller_tb
+
 
 

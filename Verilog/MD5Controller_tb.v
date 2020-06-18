@@ -10,18 +10,20 @@ wire hashes_equal;
 wire [127:0] hashed_password;
 wire[127:0] plaintext;
 
+MD5Controller md5(clk, increment, startingPosition, target_hash, enable, hashes_equal, hashed_password, plaintext);
+
 initial begin
     
-    clk <=0;
+    clk <= 0;
     startingPosition <= "a";
     increment <= 3'b001;
     target_hash <= 127'h2db1850a4fe292bd2706ffd78dbe44b9; //vader
 
     $display("\n    Password Hexadecimal\t\t       Password String");
-    $monitor("%d\t%d\t%d\t%d\t%h",enable, MD5Controller.reset,hashes_equal,MD5Controller.guess_to_compare, hashed_password);
+    $monitor("%d\t%d\t%d\t%d\t%h",enable, md5.reset,hashes_equal,md5.guess_to_compare, hashed_password);
 
 
-    repeat(1000) begin
+    repeat(1000000000000000) begin
         #5 clk = ~clk;
     end
     

@@ -10,6 +10,7 @@ run:
 clean:
 	rm $(PROG)
 	rm MD5Controller_tb
+	rm comparator_tb
 
 comparator_tb: Comparator_tb.v Comparator.v
 	iverilog -o comparator_tb Comparator.v Comparator_tb.v

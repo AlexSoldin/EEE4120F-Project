@@ -1,7 +1,6 @@
 module MD5Controller_tb();
 
 reg clk;
-
 reg [2:0] increment;
 reg [7:0] startingPosition;
 reg [127:0] target_hash;
@@ -10,6 +9,8 @@ wire hashes_equal;
 wire [127:0] hashed_password;
 wire[127:0] plaintext;
 
+MD5Controller uut(clk, increment, startingPosition, target_hash, enable, hashes_equal, hashed_password, plaintext);
+
 initial begin
     
     clk <=0;
@@ -17,12 +18,13 @@ initial begin
     increment <= 3'b001;
     target_hash <= 127'h2db1850a4fe292bd2706ffd78dbe44b9; //vader
 
-    $display("\n    Password Hexadecimal\t\t       Password String");
-    $monitor("%d\t%d\t%d\t%d\t%h",enable, MD5Controller.reset,hashes_equal,MD5Controller.guess_to_compare, hashed_password);
+
+    $display("\nEnable\tHashes Equal?\tHashed Password");
+    $monitor("%d\t  %d\t\t%h",enable,hashes_equal, hashed_password);
 
 
-    repeat(1000) begin
-        #5 clk = ~clk;
+    repeat(10000) begin
+        #1 clk = ~clk;
     end
     
 

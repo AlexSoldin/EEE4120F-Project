@@ -7,16 +7,16 @@ module SuccessDetector(
 
 always @ (posedge clk) begin
     if (cracker1 == 1'b1) begin
-        successfulCracker <= 1'b00;
+        successfulCracker <= 2'b00;
         success <= 1;
     end else if (cracker2 == 1'b1) begin
-        successfulCracker <= 1'b01;
+        successfulCracker <= 2'b01;
         success <= 1;
     end else if (cracker3 == 1'b1) begin
-        successfulCracker <= 1'b10;
+        successfulCracker <= 2'b10;
         success <= 1;
     end else if (cracker4 == 1'b1 begin
-        successfulCracker <= 1'b11;
+        successfulCracker <= 2'b11;
         success <= 1;
     end else begin
         success <= 0;

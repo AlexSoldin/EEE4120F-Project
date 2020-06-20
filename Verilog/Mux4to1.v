@@ -4,7 +4,7 @@ module Mux4to1(
     output reg [127:0] out
 );
 
-always @ (in1 or in2 or in3 or in4) begin
+always @ (in1 or in2 or in3 or in4 or sel) begin
     case (sel)
         2'b00: out = in1;
         2'b01: out = in2;

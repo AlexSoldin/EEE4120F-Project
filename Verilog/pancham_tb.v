@@ -89,9 +89,9 @@ initial begin // {
 
    // Wait till the chip becomes ready
    wait (ready);
-   #10 $display ("Input:\t\ta \nBit Width:\t8 bits");
-   m_in     = "a";
-   m_in_w   = 8'h8;
+   #10 $display ("Input:\t\takha \nBit Width:\t8 bits");
+   m_in     = "akha";
+   m_in_w   = 8'h32;
    m_in_val = 1'b1;
    #10;
    m_in_val = 1'b0;

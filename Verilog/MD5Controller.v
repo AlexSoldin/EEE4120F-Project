@@ -4,11 +4,10 @@ module MD5Controller(
     input [7:0] startingPosition,
     input [127:0] target_hash,
     output reg enable, //drives driver and other modules
-    output reg hashes_equal,
+    output reg hashes_equal = 0,
     output reg [127:0] hashed_pword, //for testing purposes
     output reg [127:0]  plaintext
 );
-
 wire reset; //tied to Drive module
 wire [127:0] guess;
 reg [0:127] word_in; //the word sent to pancham md5 encrypter, max 128
@@ -35,7 +34,7 @@ always @ (posedge reset) begin
 end
 
 always @ (posedge clock) begin
-    if (reset == 0) begin
+    if (reset == 1) begin //THIS SHOULD BE RESET==0, 1 for TESTING PURPOSES
         enable <= 1; //enable all modules if reset is low, driver module manages reset
     end
     if (enable == 1) begin
@@ -48,7 +47,7 @@ always @ (posedge clock) begin
         end
     end//end if enable is 1
 
-    if(hashes_equal)begin
+    if(hashes_equal==1)begin
         enable <= 0; //we're done
     end
 end //end always

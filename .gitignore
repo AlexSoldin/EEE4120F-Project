@@ -4,3 +4,4 @@ Verilog/comparator_tb
 Verilog/BruteForce_tb
 Verilog/ASCIICounter_tb
 .DS_Store
+Verilog/successdetector_tb

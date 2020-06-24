@@ -19,10 +19,10 @@ initial begin
     target_hash <= 127'h2db1850a4fe292bd2706ffd78dbe44b9; //vader
 
     $display("\n    Password Hexadecimal\t\t       Password String");
-    $monitor("%d\t%d\t%d\t%d\t%h",enable, md5.reset,hashes_equal,md5.guess_to_compare, hashed_password);
+    $monitor("%d\t%d\t%d\t%d\t%h\t%d\t%d",enable, uut.reset,hashes_equal,uut.guess_to_compare, hashed_password, uut.encrypter_ready, uut.output_valid);
 
 
-    repeat(1000000000000000) begin
+    repeat(1000000) begin
         #5 clk = ~clk;
     end
     

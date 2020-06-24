@@ -39,3 +39,11 @@ run_mux4to1_tb:
 clean_mux4to1_tb:
 	rm mux4to1_tb
 
+successdetector_tb: SuccessDetector_tb.v SuccessDetector.v
+	iverilog -o successdetector_tb SuccessDetector.v SuccessDetector_tb.v
+
+run_successdetector_tb:
+	./successdetector_tb
+
+clean_successdetector_tb:
+	rm successdetector_tb

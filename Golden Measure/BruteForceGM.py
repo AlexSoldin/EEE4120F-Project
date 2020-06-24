@@ -3,19 +3,18 @@ import os
 import time
 
 # Input
-TARGET = "2db1850a4fe292bd2706ffd78dbe44b9" #vader
-#TARGET = "04668875412db9993629099fd66d444d" #labrador
-#TARGET = "dd22141acb5ea065acd5ed773729c98f" #alexander
+# TARGET = "4405632c5fce288684b7f73576ecd9d6" #akha
+# TARGET = "2db1850a4fe292bd2706ffd78dbe44b9" #vader
+TARGET = "24eb05d18318ac2db8b2b959315d10f2" #coffee
+# TARGET = "b41779690b83f182acc67d6388c7bac9" #jackson
 
 # Constants
 LENGTH = 10
 VALUES = range(97, 122) #all characters from 'a' to 'z'
-DISPLAY_GUESSES = True
+DISPLAY_GUESSES = False
 
 # Variables
-count = 0
-startTime = 0
-endTime = 0
+# endTime = 0
 
 # Creates a new target
 def newHashTarget(word):
@@ -24,13 +23,13 @@ def newHashTarget(word):
 
 # Checks if hash matches the target
 def checkPassword(password):
+	global startTime
+
+	password = password [::-1]
+	toCheck = hashlib.md5(password.encode())
+
 	global count
 	count += 1
-
-	global startTime
-	global endTime
-
-	toCheck = hashlib.md5(password.encode())
 
 	if (toCheck.hexdigest() == TARGET):
 		endTime = time.time()
@@ -42,7 +41,7 @@ def checkPassword(password):
 def charCombination(length, currentPosition, output):
 	for letter in VALUES:
 		newOutput = output + "%c" % letter
-		if (currentPosition < length):
+		if (currentPosition < length - 1):
 			charCombination(length, currentPosition+1, newOutput)
 		else:
 			checkPassword(newOutput)
@@ -56,10 +55,6 @@ def bruteForce():
 			print("Password Length:",length)
 		charCombination(length, 0, "")
 
-# Main method
-def main():
-	global startTime
-	startTime = time.time()
-	bruteForce()
-
-main()
+count = 0
+startTime = time.time()
+bruteForce()

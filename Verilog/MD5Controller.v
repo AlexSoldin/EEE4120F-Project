@@ -1,18 +1,19 @@
 module MD5Controller(
     input clock,
     input [2:0] increment,
-    input [7:0] startingPosition,
-    input [127:0] target_hash,
+    input [0:7] startingPosition,
+    input [0:127] target_hash,
     output reg enable, //drives driver and other modules
     output reg hashes_equal = 0,
-    output reg [127:0] hashed_pword, //for testing purposes
-    output reg [127:0]  plaintext
+    output reg [0:127] hashed_pword, //for testing purposes
+    output reg [0:127]  plaintext
 );
 wire reset; //tied to Drive module
-wire [127:0] guess;
-reg [0:127] word_in; //the word sent to pancham md5 encrypter, max 128
-reg [0:7] word_in_width = 128; //endianness to match pancham module
-wire msg_in_valid = 0; //boolean value indicating if input word is valid
+wire [0:127] guess;
+
+reg [0:127] word_in="a"; //the word sent to pancham md5 encrypter, max 128
+reg [0:7] word_in_width = 8'h8; //endianness to match pancham module
+reg msg_in_valid = 1'b1; //boolean value indicating if input word is valid
 
 //outputs of pancham
 wire [0:127] hashed_password; //output of encrypter - endianness to match encrypter

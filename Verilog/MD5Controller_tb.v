@@ -16,9 +16,10 @@ initial begin
     clk <= 0;
     startingPosition <= "a";
     increment <= 3'b001;
-    target_hash <= 127'h2db1850a4fe292bd2706ffd78dbe44b9; //vader
+    target_hash <= 127'h2db1850a4fe292bd2706ffd78dbe44b9; //vader 
 
-    $display("\n    Password Hexadecimal\t\t       Password String");
+     
+    $display("\nEnable  Reset  hashes_eq   guess_to_comp    hashed_pword    pancham_ready   output_valid ");
     $monitor("%d\t%d\t%d\t%d\t%h\t%d\t%d",enable, uut.reset,hashes_equal,uut.guess_to_compare, hashed_password, uut.encrypter_ready, uut.output_valid);
 
 

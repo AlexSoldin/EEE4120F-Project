@@ -42,38 +42,38 @@ The clock of a7 is the speed of toggle of the wrap bit of a6
 */
 ASCIICounter a7(e6, enable, startingPosition, increment, 1'b1, tempPassword[63:56], e7); 
 
-reg r1,r2,r3,r4,r5,r6,r7,r8; //to keep track of which counters have started
+reg r1,r2,r3,r4,r5,r6,r7,r8 = 0; //to keep track of which counters have started
 
-always @(posedge clock) begin
+always @(posedge clock, e0, e1, e2, e3, e4, e5, e6) begin
    
     if (enable==1 && ready==1) begin
         //password <= {tempPassword[63:56], tempPassword[55:48], tempPassword[47:40], tempPassword[39:32], tempPassword[31:24], tempPassword[23:16],tempPassword[15:8], tempPassword[7:0]};
-        password <= 32'b00000000000000000000000000000000;
+        password <= 127'h0000000000000000;
         password[7:0] <= tempPassword[7:0];
        
         if(r1 == 1)begin
             password[15:8] <= tempPassword[15:8];
         end
         if(r2 == 1)begin
-            password[23:16] <= password[23:16];
+            password[23:16] <= tempPassword[23:16];
         end
         if(r3 == 1)begin
-            password[31:24] <= password[31:24];
+            password[31:24] <= tempPassword[31:24];
         end
         if(r4 == 1)begin
-            password[39:32] <= password[39:32];
+            password[39:32] <= tempPassword[39:32];
         end
         if(r5 == 1)begin
-            password[47:40] <= password[47:40];
+            password[47:40] <= tempPassword[47:40];
         end
         if(r6 == 1)begin
-            password[55:48] <= password[55:48];
+            password[55:48] <= tempPassword[55:48];
         end
         if(r7 == 1)begin
-            password[63:56] <= password[63:56];
+            password[63:56] <= tempPassword[63:56];
         end
         if(r8 == 1)begin
-            password[71:64] <= password[71:64];
+            password[71:64] <= tempPassword[71:64];
         end
     end //end if
     

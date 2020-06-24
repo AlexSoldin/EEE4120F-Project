@@ -19,14 +19,8 @@ initial begin
     target_hash <= 127'h5014bf4efb93a883b348004c9b90ddc6; //akha 
 
      
-<<<<<<< HEAD
-    $display("\nEnable  Reset  hashes_eq   guess_to_comp    hashed_pword    pancham_ready   output_valid  word Length");
-    $monitor("%d\t%d\t%d\t%s\t%h\t%d\t%d\t%d",enable, uut.reset,hashes_equal,uut.guess, uut.hashed_password, uut.encrypter_ready, uut.output_valid, uut.word_in_width);
-=======
     $display("\nEnable  Reset  hashes_eq   guess_to_comp    hashed_pword    pancham_ready   output_valid ");
     $monitor("%d\t%d\t%d\t%s\t%h\t%d\t%d\t%d",enable, uut.reset,hashes_equal,uut.word_in, uut.hashed_password, uut.encrypter_ready, uut.output_valid, uut.word_in_width);
->>>>>>> bf3512f9b2d4420b271368e1990241e2f3a40d6e
-
 
     repeat(100000000) begin
         #10 clk = ~clk;

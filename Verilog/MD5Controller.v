@@ -8,11 +8,12 @@ module MD5Controller(
     output reg [0:127] hashed_pword, //for testing purposes
     output reg [0:127]  plaintext
 );
+reg ready = 1'b1; //used to handshake with bruteforce module so we dont skip passwords while pancham is working
 wire reset; //tied to Drive module
 wire [0:127] guess;
 
-reg [0:127] word_in="a"; //the word sent to pancham md5 encrypter, max 128
-reg [0:7] word_in_width = 8'h8; //endianness to match pancham module
+reg [0:127] word_in; //the word sent to pancham md5 encrypter, max 128
+reg [0:7] word_in_width; //endianness to match pancham module
 reg msg_in_valid = 1'b1; //boolean value indicating if input word is valid
 
 //outputs of pancham
@@ -24,9 +25,10 @@ wire equal_valid; //tells us if the output of the comparator is valid or not
 wire password_hashes_equal;
 
 reg [0:127] guess_to_compare;
+wire [0:7] numCharacters; //length of string being passed into pancham, received from BruteForce
 
-Driver driver(clock, enable, reset);
-BruteForce brute(clock, enable, startingPosition, increment, guess); //output of the BruteForce algorithm is our guess
+Driver driver(clock, enable, reset);//
+BruteForce brute(clock, enable, startingPosition, increment, ready, guess, numCharacters); //output of the BruteForce algorithm is our guess
 pancham encrypter(clock, reset, word_in, word_in_width, msg_in_valid, hashed_password, output_valid, encrypter_ready);
 Comparator comp(target_hash, guess_to_compare, enable, clock, equal_valid, password_hashes_equal);
 
@@ -34,17 +36,20 @@ always @ (posedge reset) begin
     enable <= 0; //pull enable low when reset
 end
 
-always @ (posedge clock) begin
+always @ (posedge clock) begin //
     if (reset == 1) begin //THIS SHOULD BE RESET==0, 1 for TESTING PURPOSES
         enable <= 1; //enable all modules if reset is low, driver module manages reset
     end
     if (enable == 1) begin
-        if(encrypter_ready==1 && hashes_equal==0)begin //is pancham ready for next word
-             word_in <= guess; //get the next word
+        if(encrypter_ready==1 && hashes_equal==0)begin //is pancham ready for next word, and we're not done
+            word_in_width <= numCharacters; //num characters from BruteForce
+            word_in <= guess; //get the next word, need to handshake with brute force since words were being SKIPPED! (working now)
+            ready<=0; //bruteForce has given us a word, now make it idle.
         end
         if(output_valid==1) begin //is the output of pancham valid
             guess_to_compare <= hashed_password; //assign output of encrypter to comparator
             hashed_pword <= hashed_password;
+            ready <= 1; //no we're ready to get th next word
         end
     end//end if enable is 1
 

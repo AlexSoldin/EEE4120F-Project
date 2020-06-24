@@ -7,6 +7,7 @@ module ASCIICounter(
     input enable,
     input [7:0] startingPosition, //starting letter position
     input [2:0] increment, //amount to incremenet the letters
+    input ready,
     output reg[7:0] outputLetter, //letter to return in ASCII
     output reg wrap //wrap from z back to a
 );
@@ -31,7 +32,7 @@ initial
     temp <= startingPosition;
 
 always @(posedge clock) begin
-    if (enable) begin
+    if (enable && ready) begin
         // Maintains the output in reset state until enabled for the first time
         if (previousRun == 0) begin
             previousRun <= 1;

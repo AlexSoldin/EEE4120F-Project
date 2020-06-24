@@ -46,36 +46,64 @@ reg r1,r2,r3,r4,r5,r6,r7,r8; //to keep track of which counters have started
 
 always @(posedge clock) begin
    
-    if (enable==1) begin
-        password <= {tempPassword[63:56], tempPassword[55:48], tempPassword[47:40], tempPassword[39:32], tempPassword[31:24], tempPassword[23:16],tempPassword[15:8], tempPassword[7:0]};
+    if (enable==1 && ready==1) begin
+        //password <= {tempPassword[63:56], tempPassword[55:48], tempPassword[47:40], tempPassword[39:32], tempPassword[31:24], tempPassword[23:16],tempPassword[15:8], tempPassword[7:0]};
+        password <= 32'b00000000000000000000000000000000;
+        password[7:0] <= tempPassword[7:0];
+       
+        if(r1 == 1)begin
+            password[15:8] <= tempPassword[15:8];
+        end
+        if(r2 == 1)begin
+            password[23:16] <= password[23:16];
+        end
+        if(r3 == 1)begin
+            password[31:24] <= password[31:24];
+        end
+        if(r4 == 1)begin
+            password[39:32] <= password[39:32];
+        end
+        if(r5 == 1)begin
+            password[47:40] <= password[47:40];
+        end
+        if(r6 == 1)begin
+            password[55:48] <= password[55:48];
+        end
+        if(r7 == 1)begin
+            password[63:56] <= password[63:56];
+        end
+        if(r8 == 1)begin
+            password[71:64] <= password[71:64];
+        end
     end //end if
+    
 
     if(e0==1)begin
-        r1 = 1'b1;
+        r1 <= 1'b1;
     end
     if(e1==1)begin
-        r2 = 1'b1;
+        r2 <= 1'b1;
     end
     if(e2==1)begin
-        r3 = 1'b1;
+        r3 <= 1'b1;
     end
     if(e3==1)begin
-        r4 = 1'b1;
+        r4 <= 1'b1;
     end
     if(e4==1)begin
-        r5 = 1'b1;
+        r5 <= 1'b1;
     end
     if(e5==1)begin
-        r6 = 1'b1;
+        r6 <= 1'b1;
     end
     if(e6==1)begin
-        r7 = 1'b1;
+        r7 <= 1'b1;
     end
     if(e7==1)begin
-        r8 = 1'b1;
+        r8 <= 1'b1;
     end
 
-end
+end //end always
 
 always @ (posedge r2, posedge r3, posedge r4, posedge r5, posedge r6, posedge r7, posedge r8) begin //when these are raised, they will stay raised
     numCharacters = numCharacters + 8;

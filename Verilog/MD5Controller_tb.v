@@ -19,8 +19,8 @@ initial begin
     target_hash <= 127'h2db1850a4fe292bd2706ffd78dbe44b9; //vader 
 
      
-    $display("\nEnable  Reset  hashes_eq   guess_to_comp    hashed_pword    pancham_ready   output_valid ");
-    $monitor("%d\t%d\t%d\t%s\t%h\t%d\t%d\t%d",enable, uut.reset,hashes_equal,uut.word_in, hashed_password, uut.encrypter_ready, uut.output_valid, uut.word_in_width);
+    $display("\nEnable  Reset  hashes_eq   guess_to_comp    hashed_pword    pancham_ready   output_valid  word Length");
+    $monitor("%d\t%d\t%d\t%s\t%h\t%d\t%d\t%d",enable, uut.reset,hashes_equal,uut.guess, uut.hashed_password, uut.encrypter_ready, uut.output_valid, uut.word_in_width);
 
 
     repeat(100000000) begin

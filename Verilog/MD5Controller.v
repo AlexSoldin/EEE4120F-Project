@@ -27,7 +27,7 @@ reg [0:127] guess_to_compare;
 
 Driver driver(clock, enable, reset);
 BruteForce brute(clock, enable, startingPosition, increment, guess); //output of the BruteForce algorithm is our guess
-pancham encrypter(clk, reset, word_in, word_in_width, msg_in_valid, hashed_password, output_valid, encrypter_ready);
+pancham encrypter(clock, reset, word_in, word_in_width, msg_in_valid, hashed_password, output_valid, encrypter_ready);
 Comparator comp(target_hash, guess_to_compare, enable, clock, equal_valid, password_hashes_equal);
 
 always @ (posedge reset) begin

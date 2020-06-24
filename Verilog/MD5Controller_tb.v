@@ -23,7 +23,7 @@ initial begin
     $monitor("%d\t%d\t%d\t%d\t%h\t%d\t%d",enable, uut.reset,hashes_equal,uut.guess_to_compare, hashed_password, uut.encrypter_ready, uut.output_valid);
 
 
-    repeat(1000000) begin
+    repeat(100000) begin
         #5 clk = ~clk;
     end
     

@@ -30,7 +30,6 @@ BruteForce brute(clock, enable, startingPosition, increment, guess); //output of
 pancham encrypter(clk, reset, word_in, word_in_width, msg_in_valid, hashed_password, output_valid, encrypter_ready);
 Comparator comp(target_hash, guess_to_compare, enable, clock, equal_valid, password_hashes_equal);
 
-
 always @ (posedge reset) begin
     enable <= 0; //pull enable low when reset
 end

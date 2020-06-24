@@ -13,18 +13,17 @@ MD5Controller uut(clk, increment, startingPosition, target_hash, enable, hashes_
 
 initial begin
     
-    clk <=0;
+    clk <= 0;
     startingPosition <= "a";
     increment <= 3'b001;
     target_hash <= 127'h2db1850a4fe292bd2706ffd78dbe44b9; //vader
 
+    $display("\n    Password Hexadecimal\t\t       Password String");
+    $monitor("%d\t%d\t%d\t%d\t%h",enable, md5.reset,hashes_equal,md5.guess_to_compare, hashed_password);
 
-    $display("\nEnable\tHashes Equal?\tHashed Password");
-    $monitor("%d\t  %d\t\t%h",enable,hashes_equal, hashed_password);
 
-
-    repeat(10000) begin
-        #1 clk = ~clk;
+    repeat(1000000000000000) begin
+        #5 clk = ~clk;
     end
     
 

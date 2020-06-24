@@ -27,5 +27,15 @@ MD5Controller_tb: MD5Controller_tb.v MD5Controller.v
 run_MD5_tb:
 	./Md5Controller_tb
 
+clean_MD5_tb:
+	rm Md5Controller_tb
 
+mux4to1_tb: Mux4to1_tb.v Mux4to1.v
+	iverilog -o mux4to1_tb Mux4to1.v Mux4to1_tb.v
+
+run_mux4to1_tb:
+	./mux4to1_tb
+
+clean_mux4to1_tb:
+	rm mux4to1_tb
 

@@ -16,15 +16,15 @@ initial begin
     clk <= 0;
     startingPosition <= "a";
     increment <= 3'b001;
-    target_hash <= 127'h2db1850a4fe292bd2706ffd78dbe44b9; //vader 
+    target_hash <= 127'h5014bf4efb93a883b348004c9b90ddc6; //akha 
 
      
     $display("\nEnable  Reset  hashes_eq   guess_to_comp    hashed_pword    pancham_ready   output_valid ");
-    $monitor("%d\t%d\t%d\t%s\t%h\t%d\t%d\t%d",enable, uut.reset,hashes_equal,uut.word_in, hashed_password, uut.encrypter_ready, uut.output_valid, uut.word_in_width);
+    $monitor("%d\t%d\t%d\t%s\t%h\t%d\t%d\t%d",enable, uut.reset,hashes_equal,uut.word_in, uut.hashed_password, uut.encrypter_ready, uut.output_valid, uut.word_in_width);
 
 
     repeat(100000000) begin
-        #5 clk = ~clk;
+        #10 clk = ~clk;
     end
     
 

@@ -47,3 +47,12 @@ run_successdetector_tb:
 
 clean_successdetector_tb:
 	rm successdetector_tb
+
+pancham_tb: pancham.v pancham_round.v pancham_tb.v
+	iverilog -o pancham_tb pancham.v pancham_round.v pancham_tb.v 
+
+run_pancham_tb:
+	./pancham_tb
+
+clean_pancham_tb:
+	rm pancham_tb

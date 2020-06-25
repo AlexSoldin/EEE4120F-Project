@@ -10,46 +10,47 @@ module BruteForce(
 
 wire e0, e1, e2, e3, e4, e5, e6;
 wire[127:0] tempPassword;
-reg[127:0] finalPassword;//allows for a 16 byte long character string
+reg[127:0] finalPassword = 127'h00000000000000000000000000000000;//allows for a 16 byte long character string
 
 ASCIICounter a0(clock, enable, startingPosition, increment, ready, tempPassword[7:0], e0);
 /*
 The clock of a1 is the speed of toggle of the wrap bit of a0
 */
-ASCIICounter a1(e0, enable, startingPosition, increment, 1'b1, tempPassword[15:8], e1); 
+ASCIICounter a1(e0, enable, 8'b01100001, increment, 1'b1, tempPassword[15:8], e1); 
 /*
 The clock of a2 is the speed of toggle of the wrap bit of a1
 */
-ASCIICounter a2(e1, enable, startingPosition, increment, 1'b1, tempPassword[23:16], e2); 
+ASCIICounter a2(e1, enable, 8'b01100001, increment, 1'b1, tempPassword[23:16], e2); 
 /*
 The clock of a3 is the speed of toggle of the wrap bit of a2
 */
-ASCIICounter a3(e2, enable, startingPosition, increment, 1'b1, tempPassword[31:24], e3); 
+ASCIICounter a3(e2, enable, 8'b01100001, increment, 1'b1, tempPassword[31:24], e3); 
 /*
 The clock of a4 is the speed of toggle of the wrap bit of a3
 */
-ASCIICounter a4(e3, enable, startingPosition, increment, 1'b1, tempPassword[39:32], e4); 
+ASCIICounter a4(e3, enable, 8'b01100001, increment, 1'b1, tempPassword[39:32], e4); 
 /*
 The clock of a5 is the speed of toggle of the wrap bit of a4
 */
-ASCIICounter a5(e4, enable, startingPosition, increment, 1'b1, tempPassword[47:40], e5); 
+ASCIICounter a5(e4, enable, 8'b01100001, increment, 1'b1, tempPassword[47:40], e5); 
 /*
 The clock of a6 is the speed of toggle of the wrap bit of a5
 */
-ASCIICounter a6(e5, enable, startingPosition, increment, 1'b1, tempPassword[55:48], e6); 
+ASCIICounter a6(e5, enable, 8'b01100001, increment, 1'b1, tempPassword[55:48], e6); 
 /*
 The clock of a7 is the speed of toggle of the wrap bit of a6
 */
-ASCIICounter a7(e6, enable, startingPosition, increment, 1'b1, tempPassword[63:56], e7); 
+ASCIICounter a7(e6, enable, 8'b01100001, increment, 1'b1, tempPassword[63:56], e7); 
 
 reg r1,r2,r3,r4,r5,r6,r7,r8 = 0; //to keep track of which counters have started
 
-always @(posedge clock, e0, e1, e2, e3, e4, e5, e6) begin
+always @(posedge clock, e0, e1, e2, e3, e4, e5, e6, e7) begin
    
     if (enable==1 && ready==1) begin
         //password <= {tempPassword[63:56], tempPassword[55:48], tempPassword[47:40], tempPassword[39:32], tempPassword[31:24], tempPassword[23:16],tempPassword[15:8], tempPassword[7:0]};
-        password <= 127'h0000000000000000;
+        password <= 32'b0;
         password[7:0] <= tempPassword[7:0];
+        //password[15:8] <= 8'b00000000;
        
         if(r1 == 1)begin
             password[15:8] <= tempPassword[15:8];
@@ -75,6 +76,9 @@ always @(posedge clock, e0, e1, e2, e3, e4, e5, e6) begin
         if(r8 == 1)begin
             password[71:64] <= tempPassword[71:64];
         end
+
+        //password <= finalPassword;
+
     end //end if
     
 

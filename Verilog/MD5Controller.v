@@ -9,9 +9,8 @@ module MD5Controller(
     output reg [0:127]  plaintext
 );
 reg ready = 1'b1; //used to handshake with bruteforce module so we dont skip passwords while pancham is working
-reg readyForNextWord = 1'b0;
 wire reset; //tied to Drive module
-wire [0:127] guess;//
+wire [0:127] guess;
 
 reg [0:127] word_in; //the word sent to pancham md5 encrypter, max 128
 reg [0:7] word_in_width; //endianness to match pancham module
@@ -33,7 +32,6 @@ Driver driver(clock, enable, reset);
 BruteForce brute(bruteclk, enable, startingPosition, increment, ready, guess, numCharacters); //output of the BruteForce algorithm is our guess
 pancham encrypter(clock, reset, word_in, word_in_width, msg_in_valid, hashed_password, output_valid, encrypter_ready);
 Comparator comp(target_hash, guess_to_compare, enable, clock, equal_valid, password_hashes_equal);
-slowit slow(clock, reset, sclk);
 
 
 always @ (posedge reset) begin
@@ -78,13 +76,14 @@ always @ (posedge clock) begin
             hashed_pword <= hashed_password;
             ready <= 1; //now we're ready to get the next word.
         end
+    end//end if enable is 1.
 
         if(password_hashes_equal==1)begin
             enable <= 0; //we're done
             msg_in_valid <= 0;
             $finish;
         end
-    end 
+    
 end //end always
 
 endmodule

@@ -109,7 +109,7 @@ always @(posedge clock, e0, e1, e2, e3, e4, e5, e6, e7) begin
 
 end //end always
 
-always @ (posedge r2, posedge r3, posedge r4, posedge r5, posedge r6, posedge r7, posedge r8) begin //when these are raised, they will stay raised
+always @ (posedge r1, posedge r2, posedge r3, posedge r4, posedge r5, posedge r6, posedge r7, posedge r8) begin //when these are raised, they will stay raised
     numCharacters = numCharacters + 8;
 end
 endmodule

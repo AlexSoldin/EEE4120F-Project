@@ -50,6 +50,7 @@ always @ (posedge clock) begin
     if (enable == 1) begin
         bruteclk <= output_valid;
         if(encrypter_ready==1 && password_hashes_equal==0 && ready==1)begin //is pancham ready for next word, and we're not done
+        msg_in_valid = 1;
         if (numCharacters == 8) begin
             word_in <= guess[120:127];
         end if (numCharacters == 16) begin
@@ -73,6 +74,8 @@ always @ (posedge clock) begin
         end
         if(output_valid==1) begin //is the output of pancham valid
             guess_to_compare <= hashed_password; //assign output of encrypter to comparator
+            msg_in_valid = 0;
+            // msg_in_valid = 1;
             hashed_pword <= hashed_password;
             ready <= 1; //now we're ready to get the next word.
         end

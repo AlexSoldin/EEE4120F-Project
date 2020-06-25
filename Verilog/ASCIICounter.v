@@ -26,7 +26,7 @@ reg [7:0] counter = 0;
 A placeholder for the actual outputLetter.
 Counts from a to z in steps specified by the increment variable
 */
-reg [7:0] temp = 8'b0;
+reg [7:0] temp = "a";
 
 initial 
     temp <= startingPosition;

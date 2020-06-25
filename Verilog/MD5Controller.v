@@ -73,12 +73,13 @@ always @ (posedge clock) begin
             ready<=0; //bruteForce has given us a word, now make it idle.
         end
         if(output_valid==1) begin //is the output of pancham valid
-            guess_to_compare <= hashed_password; //assign output of encrypter to comparator
+             //assign output of encrypter to comparator
             msg_in_valid = 0;
             // msg_in_valid = 1;
             hashed_pword <= hashed_password;
             ready <= 1; //now we're ready to get the next word.
         end
+        guess_to_compare <= hashed_password;
     end//end if enable is 1.
 
         if(password_hashes_equal==1)begin

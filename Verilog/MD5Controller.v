@@ -9,7 +9,6 @@ module MD5Controller(
     output reg [0:127]  plaintext
 );
 reg ready = 1'b1; //used to handshake with bruteforce module so we dont skip passwords while pancham is working
-reg readyForNextWord = 1'b0;
 wire reset; //tied to Drive module
 wire [0:127] guess;
 
@@ -42,7 +41,7 @@ always @ (posedge clock) begin //
         enable <= 1; //enable all modules if reset is low, driver module manages reset
     end
     if (enable == 1) begin
-        if(encrypter_ready==1 && hashes_equal==0 && ready==1)begin //is pancham ready for next word, and we're not done
+        if(encrypter_ready==1 && password_hashes_equal==0 && ready==1)begin //is pancham ready for next word, and we're not done
             word_in_width <= numCharacters; //num characters from BruteForce
             word_in <= guess; //get the next word, need to handshake with brute force since words were being SKIPPED! (working now)
             ready<=0; //bruteForce has given us a word, now make it idle.
@@ -54,9 +53,12 @@ always @ (posedge clock) begin //
         end
     end//end if enable is 1.
 
-    if(hashes_equal==1)begin
-        enable <= 0; //we're done
-    end
+        if(password_hashes_equal==1)begin
+            enable <= 0; //we're done
+            msg_in_valid <= 0;
+            $finish;
+        end
+    
 end //end always
 
 endmodule

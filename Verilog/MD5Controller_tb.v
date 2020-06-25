@@ -14,9 +14,9 @@ MD5Controller uut(clk, increment, startingPosition, target_hash, enable, hashes_
 initial begin
     
     clk <= 0;
-    startingPosition <= "a";
+    startingPosition <= "a";//
     increment <= 3'b001;
-    target_hash <= 127'h5014bf4efb93a883b348004c9b90ddc6; //akha 
+    target_hash <= 127'h5014bf4efb93a883b348004c9b90ddc6; //akha
 
      
     $display("\nEnable  Reset  hashes_eq   guess_to_comp    hashed_pword    pancham_ready   output_valid  word Length");

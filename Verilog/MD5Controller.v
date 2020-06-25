@@ -11,7 +11,7 @@ module MD5Controller(
 reg ready = 1'b1; //used to handshake with bruteforce module so we dont skip passwords while pancham is working
 reg readyForNextWord = 1'b0;
 wire reset; //tied to Drive module
-wire [0:127] guess;//
+wire [0:127] guess;
 
 reg [0:127] word_in; //the word sent to pancham md5 encrypter, max 128
 reg [0:7] word_in_width; //endianness to match pancham module
@@ -26,9 +26,9 @@ wire equal_valid; //tells us if the output of the comparator is valid or not
 wire password_hashes_equal;
 reg [0:127] guess_to_compare; //passed into comparator module
 wire [0:7] numCharacters; //length of string being passed into pancham, received from BruteForce
-reg [0:7] numCharactersReg;
+reg [0:7] numCharactersReg; //
 
-Driver driver(clock, enable, reset);
+Driver driver(clock, enable, reset);//
 BruteForce brute(clock, enable, startingPosition, increment, ready, guess, numCharacters); //output of the BruteForce algorithm is our guess
 pancham encrypter(clock, reset, word_in, word_in_width, msg_in_valid, hashed_password, output_valid, encrypter_ready);
 Comparator comp(target_hash, guess_to_compare, enable, clock, equal_valid, password_hashes_equal);
@@ -37,7 +37,7 @@ always @ (posedge reset) begin
     enable <= 0; //pull enable low when reset
 end
 
-always @ (posedge clock) begin 
+always @ (posedge clock) begin //
     if (reset == 1) begin //THIS SHOULD BE RESET==0, 1 for TESTING PURPOSES
         enable <= 1; //enable all modules if reset is low, driver module manages reset
     end
@@ -52,7 +52,7 @@ always @ (posedge clock) begin
             hashed_pword <= hashed_password;
             ready <= 1; //now we're ready to get the next word.
         end
-    end//end if enable is 1
+    end//end if enable is 1.
 
     if(hashes_equal==1)begin
         enable <= 0; //we're done

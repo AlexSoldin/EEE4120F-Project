@@ -20,7 +20,7 @@ initial begin
 
      
     $display("\nEnable  Reset  hashes_eq   guess_to_comp    hashed_pword    pancham_ready   output_valid ");
-    $monitor("%d\t%d\t%d\t%s\t%h\t%d\t%d\t%d",enable, uut.reset,hashes_equal,uut.word_in, uut.hashed_password, uut.encrypter_ready, uut.output_valid, uut.word_in_width);
+    $monitor("%d\t%d\t%d\t%h\t%h\t%d\t%d\t%d",enable, uut.reset,hashes_equal,uut.word_in, uut.hashed_password, uut.encrypter_ready, uut.output_valid, uut.word_in_width);
 
     repeat(100000000) begin
         #10 clk = ~clk;

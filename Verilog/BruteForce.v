@@ -51,7 +51,10 @@ always @(posedge clock, e0, e1, e2, e3, e4, e5, e6) begin
         password <= 127'h0000000000000000;
         password[7:0] <= tempPassword[7:0];
        
-        if(r1 == 1)begin
+        if(r1 == 0)begin
+            password[15:8] <= 127'h0;
+        end
+        else begin
             password[15:8] <= tempPassword[15:8];
         end
         if(r2 == 1)begin

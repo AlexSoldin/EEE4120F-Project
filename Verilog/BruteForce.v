@@ -10,7 +10,7 @@ module BruteForce(
 
 wire e0, e1, e2, e3, e4, e5, e6;
 wire[127:0] tempPassword;
-reg[127:0] finalPassword;//allows for a 16 byte long character string
+reg[127:0] finalPassword = 127'h00000000000000000000000000000000;//allows for a 16 byte long character string
 
 ASCIICounter a0(clock, enable, startingPosition, increment, ready, tempPassword[7:0], e0);
 /*
@@ -44,40 +44,51 @@ ASCIICounter a7(e6, enable, startingPosition, increment, 1'b1, tempPassword[63:5
 
 reg r1,r2,r3,r4,r5,r6,r7,r8 = 0; //to keep track of which counters have started
 
-always @(posedge clock, e0, e1, e2, e3, e4, e5, e6) begin
+always @(posedge clock, e0, e1, e2, e3, e4, e5, e6, e7) begin
    
     if (enable==1 && ready==1) begin
         //password <= {tempPassword[63:56], tempPassword[55:48], tempPassword[47:40], tempPassword[39:32], tempPassword[31:24], tempPassword[23:16],tempPassword[15:8], tempPassword[7:0]};
-        password <= 127'h0000000000000000;
-        password[7:0] <= tempPassword[7:0];
+        // password <= 127'h0000000000000000;
+        finalPassword[7:0] <= tempPassword[7:0];
        
         if(r1 == 0)begin
-            password[15:8] <= 127'h0;
+            finalPassword[15:8] <= 127'h0;
         end
         else begin
-            password[15:8] <= tempPassword[15:8];
+            finalPassword[15:8] <= tempPassword[15:8];
+            numCharacters <= 8'h10;
         end
         if(r2 == 1)begin
-            password[23:16] <= tempPassword[23:16];
+            finalPassword[23:16] <= tempPassword[23:16];
+            numCharacters <= 8'h18;
         end
         if(r3 == 1)begin
-            password[31:24] <= tempPassword[31:24];
+            finalPassword[31:24] <= tempPassword[31:24];
+            numCharacters <= 8'h20;
         end
         if(r4 == 1)begin
-            password[39:32] <= tempPassword[39:32];
+            finalPassword[39:32] <= tempPassword[39:32];
+            numCharacters <= 8'h28;
         end
         if(r5 == 1)begin
-            password[47:40] <= tempPassword[47:40];
+            finalPassword[47:40] <= tempPassword[47:40];
+            numCharacters <= 8'h30;
         end
         if(r6 == 1)begin
-            password[55:48] <= tempPassword[55:48];
+            finalPassword[55:48] <= tempPassword[55:48];
+            numCharacters <= 8'h38;
         end
         if(r7 == 1)begin
-            password[63:56] <= tempPassword[63:56];
+            finalPassword[63:56] <= tempPassword[63:56];
+            numCharacters <= 8'h40;
         end
         if(r8 == 1)begin
-            password[71:64] <= tempPassword[71:64];
+            finalPassword[71:64] <= tempPassword[71:64];
+            numCharacters <= 8'h48;
         end
+
+        password <= finalPassword;
+
     end //end if
     
 
@@ -108,8 +119,8 @@ always @(posedge clock, e0, e1, e2, e3, e4, e5, e6) begin
 
 end //end always
 
-always @ (posedge r2, posedge r3, posedge r4, posedge r5, posedge r6, posedge r7, posedge r8) begin //when these are raised, they will stay raised
-    numCharacters = numCharacters + 8;
-end
+// always @ (posedge r2, posedge r3, posedge r4, posedge r5, posedge r6, posedge r7, posedge r8) begin //when these are raised, they will stay raised
+//     numCharacters = numCharacters + 8;
+// end
 endmodule
 

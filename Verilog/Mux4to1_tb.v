@@ -1,9 +1,16 @@
+/* Mux4to1.v Testbench
+ Tests operation of 4-to-1 Multiplexor
+ */
 module Mux4to1_tb();
-    
+    /*
+     registers and wires used to interface with 4to1Mux
+     */
     reg [127:0] in1, in2, in3, in4;
     reg [1:0] sel;
     wire [127:0] out;
-    
+    /*
+     Instantiation of 4to1Mux
+     */
     Mux4to1 uut(in1, in2, in3, in4, sel, out);
     
     initial begin

@@ -12,6 +12,15 @@ clean:
 	rm MD5Controller_tb
 	rm comparator_tb
 
+asciicounter_tb: asciicounter_tb.v asciicounter
+	iverilog -o asciicounter_tb ASCIICounter.v ASCIICounter_tb.v
+
+run_asciicounter_tb:
+	./asciicounter_tb
+
+clean_asciicounter_tb:
+	rm asciicounter
+
 comparator_tb: Comparator_tb.v Comparator.v
 	iverilog -o comparator_tb Comparator.v Comparator_tb.v
 

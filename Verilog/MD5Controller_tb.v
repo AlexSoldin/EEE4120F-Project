@@ -16,9 +16,14 @@ initial begin
     clk <= 0;
     startingPosition <= "a";//
     increment <= 3'b001;
-    target_hash = 128'hdaceb4d1eae5d82af8dc2991fcd66137; //akha
-    $display("\nEnable  Reset  hashes_eq   guess_to_comp    hashed_pword    pancham_ready   output_valid  word Length");
-    $monitor("%d\t%d\t%d\t%s\t%h\t%d\t%d\t%d",enable, uut.reset,hashes_equal,uut.word_in, uut.hashed_password, uut.encrypter_ready, uut.output_valid, uut.word_in_width);
+    // lex_hash = 128'hc17f30f7bac12b15413c3a99b5e6082b;
+    // akha_hash = 128'hdbf1f9387391a61af6b9e429722b9447;
+    // vader_hash = 128'hcd3542249e4323fd902046f20d457a48;
+    // coffee_hash = 128'hb88883a94d21d9310ff3a8fd83e1df59;
+    // jackson_hash = 128'h605b2f998435b565c56bf7d5a1a9b83e;
+    target_hash = 128'hc17f30f7bac12b15413c3a99b5e6082b;
+    $display("\nEnable\tReset\tHashes Equal\tGuess\tHashed Guess\t\t\tEncrpter Ready\tOutput Valid\tGuess Length");
+    $monitor("%d\t%d\t%d%s\t%h\t%d\t%d\t\t%d",enable, uut.reset,uut.password_hashes_equal,uut.word_in, uut.hashed_password, uut.encrypter_ready, uut.output_valid, uut.word_in_width);
 
 
     repeat(100000000) begin

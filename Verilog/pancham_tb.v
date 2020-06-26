@@ -76,9 +76,9 @@ initial begin // {
    // Wait till the chip comes out of reset and ready 
    wait (!rst & ready);
    $display ("-------- MD5 --------");
-   #10 $display ("Input:\t\t(empty string) \nBit Width:\t0 bits");
-   m_in     = ""; /* Empty string */
-   m_in_w   = 8'h0;
+   $display ("Input:\t\tlex \nBit Width:\t24 bits");
+   m_in     = "lex";
+   m_in_w   = 8*3;
    m_in_val = 1'b1;
    #10;
    m_in_val = 1'b0;
@@ -86,12 +86,10 @@ initial begin // {
    wait(m_out_val);
    $display("Output:\t\t%h\n", m_out);
 
-
-   // Wait till the chip becomes ready
    wait (ready);
-   #10 $display ("Input:\t\takha \nBit Width:\t8 bits");
+   #10 $display ("Input:\t\takha \nBit Width:\t32 bits");
    m_in     = "akha";
-   m_in_w   = 8'h32;
+   m_in_w   = 8*4;
    m_in_val = 1'b1;
    #10;
    m_in_val = 1'b0;
@@ -102,8 +100,8 @@ initial begin // {
    // Wait till the chip becomes ready
    wait (ready);
    #10 $display ("Input:\t\tvader \nBit Width:\t40 bits");
-   m_in     = "vader";  // "abc" reversed
-   m_in_w   = 8'h28;
+   m_in     = "vader";  
+   m_in_w   = 8*5;
    m_in_val = 1'b1;
    #10;
    m_in_val = 1'b0;
@@ -113,9 +111,21 @@ initial begin // {
 
    // Wait till the chip becomes ready
    wait (ready);
-   #10 $display ("Input:\t\tpassword \nBit Width:\t40 bits");
-   m_in     = "password"; // "message digest" reversed
-   m_in_w   = 8'h40;
+   #10 $display ("Input:\t\tcoffee \nBit Width:\t48 bits");
+   m_in     = "coffee";  
+   m_in_w   = 8*6;
+   m_in_val = 1'b1;
+   #10;
+   m_in_val = 1'b0;
+   // Wait for the result to come out; then compare
+   wait(m_out_val);
+   $display("Output:\t\t%h\n", m_out);
+
+   // Wait till the chip becomes ready
+   wait (ready);
+   #10 $display ("Input:\t\tjackson \nBit Width:\t56 bits");
+   m_in     = "jackson"; 
+   m_in_w   = 8*7;
    m_in_val = 1'b1;
    #10;
    m_in_val = 1'b0;
@@ -123,78 +133,7 @@ initial begin // {
    wait(m_out_val);
    $display("Output:\t\t%h", m_out);
 
-   // if (m_out == 128'hf96b697d7cb7938d525a2f31aaf161d0) 
-   //    $display (" MD5 TEST 3: PASSED");
-
-   // else 
-   //    $display (" MD5 TEST 3: FAILED");
-
-   /* The following original MD5 tests can not be run on this 
-      chip as their input message width is greater than 128 bits.
-
-   // Wait till the chip becomes ready
-   wait (ready);
-   #10 $display ("-------- MD5 TEST 4 --------");
-   m_in     = "abcdefghijklmnopqrstuvwxyz";
-   m_in_w   = 8'hd0;
-   m_in_val = 1'b1;
-   #10;
-   m_in_val = 1'b0;
-   // Wait for the result to come out; then compare
-   wait(m_out_val);
-   if (m_out == 128'hc3fcd3d76192e4007dfb496cca67e13b) 
-      $display (" MD5 TEST 4: PASSED");
-   else 
-      $display (" MD5 TEST 4: FAILED");
-
-   // Wait till the chip becomes ready
-   wait (ready);
-   #10 $display ("-------- MD5 TEST 5 --------");
-   m_in     = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-   m_in_w   = 8'h1f;
-   m_in_val = 1'b1;
-   #10;
-   m_in_val = 1'b0;
-   // Wait for the result to come out; then compare
-   wait(m_out_val);
-   if (m_out == 128'hd174ab98d277d9f5a5611c2c9f419d9f) 
-      $display (" MD5 TEST 5: PASSED");
-   else 
-      $display (" MD5 TEST 5: FAILED");
-
-   // Wait till the chip becomes ready
-   wait (ready);
-   #10 $display ("-------- MD5 TEST 6 --------");
-   m_in     = "1234567890123456789012345678901234567890 1234567890123456789012345678901234567890";
-   m_in_w   = 8'h29;
-   m_in_val = 1'b1;
-   #10;
-   m_in_val = 1'b0;
-   // Wait for the result to come out; then compare
-   wait(m_out_val);
-   if (m_out == 128'hb2eb6f504653aab4f5cef4b7adaee6c1) 
-      $display (" MD5 TEST 6: PASSED");
-   else 
-      $display (" MD5 TEST 6: FAILED");
-   */
-
-   // Wait for a while before finishing
    #100;
    $finish;
-end //}
-
-// 
-initial begin // {
-//   $dumpvars;
-//   $monitor($time, ": State = %s, Phase = %b", MD5.ascii_state, MD5.phase);
-//   $monitor($time, ": abcd = %h_%h_%h_%h, m = %h", MD5.A, MD5.B, MD5.C, MD5.D, MD5.m);
-// $monitor($time, 
-//          ": m_in = %h, m_in_w = %h, m_in_val = %h, m_out = %h, m_out_val = %h, ready = %b", 
-//   m_in, 
-//   m_in_w, 
-//   m_in_val, 
-//   m_out,
-//   m_out_val,
-//   ready);
-end // }
+end 
 endmodule

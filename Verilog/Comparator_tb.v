@@ -1,14 +1,24 @@
+/* Comparator.v Testbench
+ Used to test that Comparator.v correctly tests for equality
+ */
 module Comparator_tb();
+    /*
+     Wires and registers used to interface with comparator
+     */
+    reg [127:0] target_hash;
+    reg [127:0] test_hash;
+    reg test_en;
+    reg clk;
+    wire equal_valid;
+    wire hashes_equal;
     
-    reg [127:0] target_hash;      // hash of the password being guessed
-    reg [127:0] test_hash;        // hash of the guess
-    reg test_en;                  // 1 if testing is enabled
-    reg clk;                      // system clock
-    wire equal_valid;           // 1 if result is valid
-    wire hashes_equal;            // 1 if target_hash == test_hash
-    
+    /*
+     Instantiation of comparator
+     */
     Comparator uut(target_hash, test_hash, test_en, clk, equal_valid, hashes_equal);
-    
+    /*
+     Tests output of comparator to correctly idetify equal and non-equal hashes
+     */
     initial begin
         $display("Test Enabled\tTarget\t\t\t\t\tTest\t\t\t\t\tEqual\tRes Valid");
         $monitor("%d\t\t%h\t%h\t%d\t%d",test_en,target_hash,test_hash,hashes_equal,equal_valid);
@@ -61,13 +71,11 @@ module Comparator_tb();
         
         #5 clk = ~clk;
         #5 clk = ~clk;
-
+        
         test_en <= 0;
-
+        
         #5 clk = ~clk;
         #5 clk = ~clk;
         
     end
-    
-    
 endmodule // Comparator_tb

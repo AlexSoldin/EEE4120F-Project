@@ -1,50 +1,51 @@
-module SuccessDetector_tb(
+/* SuccessDetector.v Testbench
+ used to test that SuccessDetector correctly identifies which controller achieved the correct output
+ */
+module SuccessDetector_tb();
     
-);
-
-reg cracker1, cracker2, cracker3, cracker4;
-reg clk;
-wire [1:0] successfulCracker;
-wire success;
-
-SuccessDetector uut (cracker1, cracker2, cracker3, cracker4, clk, successfulCracker, success);
-
-initial begin
-    $display("Cracker 1\tCracker 2\tCracker 3\tCracker 4\tSuccess\tCracker");
-    $monitor("%b\t\t%b\t\t%b\t\t%b\t\t%b\t%b",cracker1, cracker2, cracker3, cracker4, success, successfulCracker);
-    cracker1 <= 0;
-    cracker2 <= 0;
-    cracker3 <= 0;
-    cracker4 <= 0;
-    clk <= 0;
+    reg controller1, controller2, controller3, controller4;
+    reg clk;
+    wire [1:0] successfulController;
+    wire success;
     
-    #5 clk = ~clk;
-    #5 clk = ~clk;
-
-    cracker1 <= 1;
-    #5 clk = ~clk;
-    #5 clk = ~clk;
-    cracker1 <= 0;
-    #5 clk = ~clk;
-    #5 clk = ~clk;
-    cracker2 <= 1;
-    #5 clk = ~clk;
-    #5 clk = ~clk;
-    cracker2 <= 0;
-    #5 clk = ~clk;
-    #5 clk = ~clk;
-    cracker3 <= 1;
-    #5 clk = ~clk;
-    #5 clk = ~clk;
-    cracker3 <= 0;
-    #5 clk = ~clk;
-    #5 clk = ~clk;
-    cracker4 <= 1;
-    #5 clk = ~clk;
-    #5 clk = ~clk;
-    cracker4 <= 0;
-    #5 clk = ~clk;
-    #5 clk = ~clk;
-end
-
+    SuccessDetector uut (controller1, controller2, controller3, controller4, clk, successfulController, success);
+    
+    initial begin
+        $display("Controller 1\tController 2\tController 3\tController 4\tSuccess\tController");
+        $monitor("%b\t\t%b\t\t%b\t\t%b\t\t%b\t%b",controller1, controller2, controller3, controller4, success, successfulController);
+        controller1 <= 0;
+        controller2 <= 0;
+        controller3 <= 0;
+        controller4 <= 0;
+        clk         <= 0;
+        
+        #5 clk = ~clk;
+        #5 clk = ~clk;
+        
+        controller1 <= 1;
+        #5 clk = ~clk;
+        #5 clk = ~clk;
+        controller1 <= 0;
+        #5 clk = ~clk;
+        #5 clk = ~clk;
+        controller2 <= 1;
+        #5 clk = ~clk;
+        #5 clk = ~clk;
+        controller2 <= 0;
+        #5 clk = ~clk;
+        #5 clk = ~clk;
+        controller3 <= 1;
+        #5 clk = ~clk;
+        #5 clk = ~clk;
+        controller3 <= 0;
+        #5 clk = ~clk;
+        #5 clk = ~clk;
+        controller4 <= 1;
+        #5 clk = ~clk;
+        #5 clk = ~clk;
+        controller4 <= 0;
+        #5 clk = ~clk;
+        #5 clk = ~clk;
+    end
+    
 endmodule // SuccessDetector_tb

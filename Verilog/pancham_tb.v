@@ -23,11 +23,11 @@
  Boston, MA  02111-1307 
  USA
  ******************************************************************/
-/* 
- * This is the top level module for verification of pancham 
- *
+/* pancham_tb.v Testbench
+ used to determine the hashes for 'lex,' 'akha,' 'vader,' and 'jackson'
+ modified from top.v from pancham library
  */
-module top;
+module pancham_tb;
 
 reg          clk;
 reg          rst;
